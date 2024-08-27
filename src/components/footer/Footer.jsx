@@ -49,11 +49,16 @@ export default function Footer () {
         event.preventDefault();
         alert("Спасибо за подписку! \n Олег, сделай потом модалку, как-то не серьёзно")
     }
+
+    const button = {
+        size: "button-medium",
+        decor: "button-simple",
+        text: "ОТПРАВИТЬ"
+    };
         
     return (
-        <footer className="footer">
-            <FooterContactsSubscriptions contacts={contacts} subscriptions={subscriptions} onSubscriptionSubmit={onSubscriptionSubmit}/>
-            <div className="footer__white_line"></div>
+        <footer id="footer" className="footer">
+            <FooterContactsSubscriptions contacts={contacts} subscriptions={subscriptions} onSubscriptionSubmit={onSubscriptionSubmit} button={button}/>
             <FooterLogo />
         </footer>
     )

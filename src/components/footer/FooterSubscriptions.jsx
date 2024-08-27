@@ -3,12 +3,12 @@ import Subscriptions from "./Subscriptions";
 
 export default function FooterSubscriptions (props) {
       
-    const {subscriptions, onSubscriptionSubmit} = props;
+    const {subscriptions, onSubscriptionSubmit, button} = props;
 
     return (
         <div className="footer__subscription">
             <span className="foter_title footer__subscription_form-text">Подписка</span>
-            <FooterForm onSubscriptionSubmit={onSubscriptionSubmit}/>
+            <FooterForm onSubscriptionSubmit={onSubscriptionSubmit} button={button}/>
             <span className="foter_title footer__subscription-text">Подписывайтесь на нас</span>
             <div className="footer__subscription-container">
                 {subscriptions.map((item, i) => (

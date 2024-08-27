@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export default function HeaderMenu (props) {
     
     const {menu} = props;
@@ -5,7 +7,7 @@ export default function HeaderMenu (props) {
     return (
         <div className="header__menu">
             {menu.map((item, i) => (
-                <span key={i} className="header__menu-item">{item}</span>
+                <Link key={i} className="header__menu-item" to={"/main#" + item.link}>{item.text}</Link>
             ))}
         </div>
     )
