@@ -1,11 +1,12 @@
-export default function TrainShow () {
+export default function TrainShow (props) {
 
-    
+    const {selectShow} = props;
+
     return (
         <div className="trains__show">
-            <span id="trains__show-5">5</span>
-            <span id="trains__show-10">10</span>
-            <span id="trains__show-15">15</span>
+            <span className="trains__show-active" onClick={selectShow}>5</span>
+            <span onClick={selectShow}>10</span>
+            <span onClick={selectShow}>15</span>
         </div>
     )
 }

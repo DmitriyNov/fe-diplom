@@ -1,6 +1,7 @@
 import SearchInput from "./SearchInput";
 // import SearchTooltip from "./SearchTooltip";
 import Button from "../ui/Button";
+import { Marker, Calendar } from "../icons/Icons";
 import { useNavigate } from 'react-router-dom';
 
 export default function Search (props) {
@@ -8,15 +9,15 @@ export default function Search (props) {
     const {styles} = props;
     const inputs = [
         {
-            icon: "./icons/Marker.svg",
+            icon: <Marker />,
             text: "Откуда",
         },
         {
-            icon: "./icons/Marker.svg",
+            icon: <Marker />,
             text: "Куда",
         },
         {
-            icon: "./icons/Calendar.svg",
+            icon: <Calendar />,
             text: "ДД/ММ/ГГ",
         },
     ];
@@ -39,7 +40,7 @@ export default function Search (props) {
                     <div className="search__inputs-container">
                         <SearchInput inputs={inputs[0]}/>
                         <div className="search__update">
-                            <img className="search__update-icon" src="./icons/Update.svg"/>
+                            <img className="search__update-icon" src="./icons/Update.png"/>
                         </div>
                         <SearchInput inputs={inputs[1]}/>
                     </div>

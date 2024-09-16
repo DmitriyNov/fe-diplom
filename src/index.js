@@ -8,7 +8,8 @@ import './index.css';
 import App from './App';
 import StartPage from './components/start_page/StartPage';
 import OrderPage from './components/order_tickets/OrderPage';
-import Trains from "./components/order_tickets/Trains"
+import Trains from "./components/order_tickets/Trains";
+import Places from "./components/order_tickets/Places";
 
 
 const router = createBrowserRouter([
@@ -28,8 +29,28 @@ const router = createBrowserRouter([
             path: "/order/train",
             element: <Trains />,
           },
+          {
+            path: "/order/places",
+            element: <Places />,
+          },
+          // {
+          //   path: "/order/passengers",
+          //   element: <Passengers />,
+          // },
+          // {
+          //   path: "/order/payment",
+          //   element: <Payment />,
+          // },
+          // {
+          //   path: "/order/check",
+          //   element: <Check />,
+          // },
         ],
       },
+      // {
+      //   path: "/confirmation",
+      //   element: <Confirmation />,
+      // },
     ],
   },
 ])

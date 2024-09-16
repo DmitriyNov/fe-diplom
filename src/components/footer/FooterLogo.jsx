@@ -1,3 +1,5 @@
+import { Up } from "../icons/Icons";
+
 export default function FooterLogo () {
       
     return (
@@ -7,7 +9,7 @@ export default function FooterLogo () {
                 <span className="logo footer__logo-text">Лого</span>
                 <a href="#">
                     <div className="footer__logo-image_container">
-                        <img className="footer__logo-image" src="./icons/Up.svg"/>
+                        <Up />
                     </div>
                 </a>
                 <span className="footer__logo-sign">2024 WEB</span>

@@ -1,46 +1,47 @@
 import FooterContactsSubscriptions from "./FooterContactsSubscriptions";
 import FooterLogo from "./FooterLogo";
+import { Phone, Mail, Skype, Marker, YouTube, Linkedin, Google, Facebook, Twitter } from "../icons/Icons";
 
 export default function Footer () {
     
     const contacts = [
         {
-            icon: "./icons/Phone.svg",
+            icon: <Phone />,
             text: "8 (800) 000 00 00",
         },
         {
-            icon: "./icons/Mail.svg",
+            icon: <Mail />,
             text: "inbox@mail.ru",
         },
         {
-            icon: "./icons/Skype.svg",
+            icon: <Skype />,
             text: "tu.train.tickets",
         },
         {
-            icon: "./icons/Map.svg",
+            icon: <Marker />,
             text: "г. Москва\nул. Московская 27-35\n555 555",
         }
     ];
 
     const subscriptions = [
         {
-            icon: "./icons/YouTube.svg",
+            icon: <YouTube />,
             link: "#",
         },
         {
-            icon: "./icons/Linkedin.svg",
+            icon: <Linkedin />,
             link: "#",
         },
         {
-            icon: "./icons/Google.svg",
+            icon: <Google />,
             link: "#",
         },
         {
-            icon: "./icons/Facebook.svg",
+            icon: <Facebook />,
             link: "#",
         },
         {
-            icon: "./icons/X.svg",
+            icon: <Twitter />,
             link: "#",
         },
     ];
