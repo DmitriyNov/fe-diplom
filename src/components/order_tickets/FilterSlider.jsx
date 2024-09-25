@@ -1,4 +1,4 @@
-import { Slider } from "@mui/material";
+import { ConfigProvider, Slider } from "antd";
 import { useState } from "react";
 
 export default function FilterSlider ( {props} ) {
@@ -7,21 +7,10 @@ export default function FilterSlider ( {props} ) {
 
     const [ sliderValue, setValue] = useState(value);
     
-    const handleChange = (event, newValue) => {
-        setValue(newValue);
+    const handleChange = (value) => {
+        setValue(value);
         onSliderChange();
     };
-    
-    const marks = [
-        {
-            value: range[0],
-            label: range[0],
-        },
-        {
-            value: range[1],
-            label: range[1],
-        },
-    ]
 
     return (
         <div className="filter__slider">
@@ -29,16 +18,43 @@ export default function FilterSlider ( {props} ) {
                 <span>от</span>
                 <span>до</span>
             </div>}
-            <Slider 
-                getAriaLabel={() => {}} //так и не понял, что сюда нужно писать
-                value={sliderValue}
-                max={range[1]}
-                min={range[0]}
-                marks={marks}
-                onChange={handleChange}
-                valueLabelDisplay="auto"
-                color="warning"
-            />
+            <ConfigProvider
+            theme={{
+                components: {
+                    Slider: {
+                        handleColor: "#FFFFFF",
+                        handleActiveColor: "#FFA800",
+                        handleSize: 18,
+                        handleSizeHover: 18,
+                        railSize: 10,
+                        railBg: "rgba(0, 0, 0, 0)",
+                        railHoverBg: "rgba(0, 0, 0, 0)",
+                        trackBg: "#FFA800",
+                        trackHoverBg: "#FFA800",
+                        colorText: "#E5E5E5",
+                        fontSize: 16,
+                    }
+                },
+            }}>
+                <Slider 
+                    value={sliderValue}
+                    range
+                    max={range[1]}
+                    min={range[0]}
+                    tooltip={
+                        {
+                            autoAdjustOverflow: false,
+                            open: true, 
+                            placement: "bottom",
+                            color: "rgba(0, 0, 0, 0)",
+                            arrow: false,
+                            formatter: value => (range[1] === 24) ? <span>{value + ":00"}</span> : <span>{value}</span>
+                        }
+                    }
+                    defaultValue={[range[0], range[1]]}
+                    onChange={handleChange}
+                />    
+            </ConfigProvider>
         </div>
     )
 }
