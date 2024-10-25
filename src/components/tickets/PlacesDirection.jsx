@@ -6,8 +6,7 @@ import PlacesTickets from "./PlacesTickets";
 
 export default function PlacesDirection ({props}) {
 
-    const {direction, number, startCity, fromCity, fromStation, toCity, toStation, options, times, places} = props;
-    const [backToTrains] = useOutletContext();
+    const {direction, number, startCity, fromCity, fromStation, toCity, toStation, options, times, places, backToTrains} = props;
     const train = 
     {
         direction: direction,

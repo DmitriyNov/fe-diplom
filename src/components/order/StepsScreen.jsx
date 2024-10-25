@@ -1,39 +1,14 @@
 import Search from "../search/Search";
 import Step from "./Step";
 
-export default function StepsScreen () {
+export default function StepsScreen (props) {
     
+    const {steps} = props;
+
     const styles = {
         top: {paddingTop: "28px"},
         bottom: {marginTop: "0"},
     };
-    const steps = [
-        {
-            number: 1,
-            text: "Билеты",
-            status: "step-active",
-            decore: "first-step",
-        },
-        {
-            number: 2,
-            text: "Пассажиры",
-            status: "",
-            decore: true,
-        },
-        {
-            number: 3,
-            text: "Оплата",
-            status: "",
-            decore: true,
-        },
-        {
-            number: 4,
-            text: "Проверка",
-            status: "",
-            decore: "finish-step",
-        },
-    ];
-
 
     return (
         <div className="steps_screen">

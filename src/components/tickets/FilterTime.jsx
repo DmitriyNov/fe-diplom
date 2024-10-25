@@ -11,10 +11,8 @@ export default function FilterTime ({props}) {
     function collapse () {
         if (visibility) {
             setVisibility(false);
-            console.log(visibility);
         } else {
             setVisibility(true);
-            console.log(visibility);
         }
     }
 

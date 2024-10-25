@@ -7,9 +7,13 @@ import {
 import './index.css';
 import App from './App';
 import StartPage from './components/start_page/StartPage';
-import OrderPage from './components/order_tickets/OrderPage';
-import Trains from "./components/order_tickets/Trains";
-import Places from "./components/order_tickets/Places";
+import OrderPage from './components/order/OrderPage';
+import Trains from "./components/tickets/Trains";
+import Places from "./components/tickets/Places";
+import Tickets from "./components/tickets/Tickets";
+import Passengers from "./components/passengers/Passengers";
+import Payment from "./components/payment/Payment";
+import Verification from "./components/verification/Verification";
 
 
 const router = createBrowserRouter([
@@ -26,25 +30,31 @@ const router = createBrowserRouter([
         element: <OrderPage />,
         children: [
           {
-            path: "/order/train",
-            element: <Trains />,
+            path: "/order/tickets",
+            element: <Tickets />,
+            children: [
+              {
+                path: "/order/tickets/train",
+                element: <Trains />,
+              },
+              {
+                path: "/order/tickets/places",
+                element: <Places />,
+              }
+            ]
           },
           {
-            path: "/order/places",
-            element: <Places />,
+            path: "/order/passengers",
+            element: <Passengers />,
           },
-          // {
-          //   path: "/order/passengers",
-          //   element: <Passengers />,
-          // },
-          // {
-          //   path: "/order/payment",
-          //   element: <Payment />,
-          // },
-          // {
-          //   path: "/order/check",
-          //   element: <Check />,
-          // },
+          {
+            path: "/order/payment",
+            element: <Payment />,
+          },
+          {
+            path: "/order/verification",
+            element: <Verification />,
+          },
         ],
       },
       // {

@@ -1,7 +1,12 @@
 import PlacesDirection from "./PlacesDirection";
+import Button from "../ui/Button";
+import { useOutletContext } from "react-router-dom";
 
 export default function Places () {
     //Пока не понял, как передать пропсы с данными о поезде с предыдущего рута
+
+    const [selectPlaces, backToTrains, selectPassengers] = useOutletContext();
+
     const trains = [
         {
             direction: "there",
@@ -140,12 +145,24 @@ export default function Places () {
         }
     ];
 
+    const button = {
+        size: "button-medium",
+        decor: "button-orange_white",
+        text: "ДАЛЕЕ",
+        onClick: () => {
+            selectPassengers();
+        },
+    };
+
     return (
         <div className="places-container">
             <span className="places__title">ВЫБОР МЕСТ</span>
             {trains.map((item, i) => (
-                <PlacesDirection key={i} props={item} />
+                <PlacesDirection key={i} props={{...item, backToTrains: backToTrains}} />
             ))}
+            <div className="places-button">
+                <Button props={button} />
+            </div>
         </div>
     )
 }

@@ -28,7 +28,7 @@ export default function Search (props) {
         text: "НАЙТИ БИЛЕТЫ",
         onClick: (event) => {
             event.preventDefault();
-            navigation("/order/train");
+            navigation("/order/tickets/train");
         },
     }
 
