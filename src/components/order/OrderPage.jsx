@@ -76,10 +76,14 @@ export default function OrderPage () {
         //setStepHandle(4);
     }
 
+    function confirmOrder () {
+        navigation("/confirmation");
+      };
+
     return (
         <div className="order_page">
             <StepsScreen steps={steps}/>
-            <Order selectPlaces={selectPlaces} backToTrains={backToTrains} selectPassengers={selectPassengers} selectPayment={selectPayment} selectVerification={selectVerification}/>
+            <Order selectPlaces={selectPlaces} backToTrains={backToTrains} selectPassengers={selectPassengers} selectPayment={selectPayment} selectVerification={selectVerification} confirmOrder={confirmOrder}/>
         </div>
     )
 }

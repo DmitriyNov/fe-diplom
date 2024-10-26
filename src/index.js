@@ -14,7 +14,7 @@ import Tickets from "./components/tickets/Tickets";
 import Passengers from "./components/passengers/Passengers";
 import Payment from "./components/payment/Payment";
 import Verification from "./components/verification/Verification";
-
+import Confirmation from "./components/confirmation/Confirmation";
 
 const router = createBrowserRouter([
   {
@@ -57,10 +57,10 @@ const router = createBrowserRouter([
           },
         ],
       },
-      // {
-      //   path: "/confirmation",
-      //   element: <Confirmation />,
-      // },
+      {
+        path: "/confirmation",
+        element: <Confirmation />,
+      },
     ],
   },
 ])

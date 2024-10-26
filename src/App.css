@@ -7,6 +7,8 @@
     border-radius: 3px;
     font-size: 24px;
     cursor: pointer;
+    padding: 1px 15px;
+    box-sizing: content-box;
 }
 
 .button-large {
@@ -64,26 +66,6 @@
     border: none;
     background-color: #FFA800;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 .header {
 
@@ -2620,88 +2602,170 @@ div:first-child {
     justify-content: end;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+.confirmation__page-container {
+
+}
+
+.confirmation__header_background {
+    position: relative;
+    height: 676px;
+}
+
+.confirmation__header_background::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0);
+    width: 100vw;
+    height: 130%;
+    background-image: url("../public/images/Confirmation_screen.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    bottom: 0;
+    z-index: -2;
+}
+
+.confirmation-container {
+    position: relative;
+    top: -325px;
+    height: 1080px;
+}
+
+.confirmation__title-text {
+    color: #FFF;
+    font-size: 72px;
+    font-weight: 700;
+}
+
+.confirmation {
+    margin-top: 30px;
+    box-shadow: 0px 2px 2px 0px #00000040;
+}
+
+.confirmation__title {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #FFF;
+    border: 1px solid #C4C4C4;
+    padding: 63px 79px 50px 82px;
+    color: #3E3C41;
+    font-size: 36px;
+    font-weight: 700;
+}
+
+.confirmation__title-amount {
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    color: #928F94;
+    font-weight: 400;
+}
+
+.confirmation__title-amount > div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 5px;
+}
+
+.confirmation__title-price {
+    color: #3E3C41;
+    font-weight: 700;
+}
+
+.confirmation__instructions {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 130px;
+    background-color: #F4F3F6;
+    padding: 40px 0;
+}
+
+.instruction {
+    width: 180px;
+    display: flex;
+    flex-direction: column;
+    gap: 34px;
+    align-items: center;
+}
+
+.instruction__icon-container {
+    position: relative;
+    height: 155px;
+    width: 155px;
+}
+
+.instruction__icon {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.instruction__text {
+    text-align: center;
+    font-size: 18px;
+    color: #292929;
+}
+
+.confirmation__text {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #C4C4C4;
+    border-top: none;
+    border-bottom: none;
+    color: #292929;
+    font-size: 24px;
+    padding: 95px 205px;
+}
+
+.confirmation > span {
+    display: inline-block;
+}
+
+.confirmation__text-user {
+    font-size: 36px;
+    font-weight: 700;
+    margin-bottom: 51px;
+}
+
+.confirmation__text-bold {
+    font-weight: 700;
+    margin-top: 70px;
+    margin-bottom: 30px;
+}
+
+.confirmation__footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #FFA800E0;
+    padding: 50px 80px;
+}
+
+.confirmation__footer-rate {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 24px;
+    color: #292929;
+    font-size: 24px;
+}
+
+.confirmation__footer-rate_stars {
+    display: flex;
+    flex-direction: row;
+    gap: 19px;
+}
+
+.confirmation__footer-rate_star-active > svg > path {
+    fill: white;
+}
 
 .footer {
     position: relative;

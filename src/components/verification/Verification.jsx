@@ -7,7 +7,7 @@ import { useOutletContext } from "react-router-dom";
 
 export default function Verification () {
     
-    const [selectPlaces, backToTrains, selectPassengers, selectPayment, selectVerification] = useOutletContext();
+    const [selectPlaces, backToTrains, selectPassengers, selectPayment, selectVerification, confirmOrder] = useOutletContext();
 
     const train = {
         number: "116С",
@@ -97,7 +97,7 @@ export default function Verification () {
         decor: "button-orange_white",
         text: "Подтвердить",
         onClick: () => {
-            console.log("done")
+            confirmOrder();
         },
     };
 
