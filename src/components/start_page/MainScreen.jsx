@@ -1,6 +1,8 @@
 import Search from "../search/Search";
 
-export default function MainScreen () {
+export default function MainScreen (props) {
+
+    const {startSearch} = props;
 
     const styles = {
         top: {paddingTop: "58px"},
@@ -16,7 +18,7 @@ export default function MainScreen () {
                     </span>
                 </div>
                 <div className="main_screen__widget-container">
-                    <Search styles={styles}/>
+                    <Search styles={styles} startSearch={startSearch}/>
                 </div>
             </div>
         </div>

@@ -9,6 +9,7 @@
     cursor: pointer;
     padding: 1px 15px;
     box-sizing: content-box;
+    box-sizing: border-box;
 }
 
 .button-large {
@@ -453,12 +454,37 @@
 }
 
 .search__input {
+    position: relative;
     height: 60px;
     width: 325px;
     padding: 0 20px;
+    border: none;
     box-sizing: border-box;
     font-size: 18px;
     border-radius: 3px;
+    text-transform: capitalize;
+}
+
+.search__input-cities_list {
+    position: absolute;
+    z-index: 3;
+    top: 65px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    box-sizing: border-box;
+    width: 325px;
+    padding: 20px;
+    font-size: 18px;
+    color: #292929;
+    text-transform: uppercase;
+    border-radius: 3px;
+    background: #F5F4F6;
+    box-shadow: 0px 4px 4px 0px #00000040;
+}
+
+.search__input-cities_list > span {
+    cursor: pointer;
 }
 
 .search__icon-container {
@@ -935,6 +961,7 @@
 .last_ticket__directions-to_city {
     font-size: 20px;
     color: #292929;
+    text-transform: capitalize;
 
 }
 
@@ -1122,6 +1149,14 @@
     color: #928F94;
 }
 
+.train__title-from_city {
+    text-transform: capitalize;
+}
+
+.train__title-to_city {
+    text-transform: capitalize;
+}
+
 .train__title-start_city > svg > path {
     fill: #928F94;
 }
@@ -1161,6 +1196,7 @@
 
 .train__times-city {
     font-size: 18px;
+    text-transform: capitalize;
 }
 
 .train__times-station {
@@ -1591,7 +1627,9 @@
 }
 
 .places__tickets-carriage-container {
-
+    display: flex;
+    flex-direction: column;
+    gap: 100px;
 }
 
 .places__tickets_carriage_select-container {
@@ -1615,6 +1653,11 @@
 .places__tickets_carriage_select-number {
     font-size: 24px;
     font-weight: 700;
+    cursor: pointer;
+}
+
+.places__tickets_carriage_select-number-active {
+    color: #FFF;
 }
 
 .places__tickets_carriage_select-order {
@@ -1622,8 +1665,17 @@
 }
 
 .places__tickets-carriage {
+    position: relative;
     display: flex;
     flex-direction: column;
+}
+
+.places__tickets-carriage:not(:last-child)::after {
+    position: absolute;
+    bottom: -60px;
+    content: "";
+    width: 100%;
+    border: 1px dashed #C4C4C4
 }
 
 .places__tickets_carriage-data {
@@ -1734,8 +1786,42 @@
 }
 
 .places__tickets_carriage_data_option {
-
+    cursor: pointer;
 }
+
+.places__tickets_carriage_data_option:hover > svg > rect {
+    fill: #FFA800;
+}
+
+.places__tickets_carriage_data_option-included {
+    cursor: auto;
+}
+
+.places__tickets_carriage_data_option-included > svg > rect {
+    stroke: transparent;
+    fill: #FCDC9D;
+} 
+
+.places__tickets_carriage_data_option-included:hover > svg > rect {
+    fill: #FCDC9D;
+} 
+
+.places__tickets_carriage_data_option-included > svg > path {
+    fill: #928F94;;
+}
+
+.places__tickets_carriage_data_option-active > svg > rect {
+    stroke: transparent;
+    fill: #FDB935;
+} 
+
+.places__tickets_carriage_data_option-active:hover > svg > rect {
+    fill: #FDB935;
+} 
+
+.places__tickets_carriage_data_option-active > svg > path {
+    fill: #F4F2F6;;
+} 
 
 .places__tickets_carriage-info {
     align-self: end;
@@ -1886,7 +1972,7 @@
 }
 
 .places__tickets_carriage_scheme-item-unavailable:hover {
-    border: none;
+    border: transparent;
     padding-bottom: 5px;
 }
 
@@ -1907,6 +1993,33 @@ div:first-child {
 .places__tickets_carriage_scheme-item-Lux_even {
     margin-left: 35.8px;
 }
+
+.places__tickets_carriage_scheme-item-selected {
+    background-color: #FFA800;
+    color: #FFF;
+}
+
+.places__tickets_carriage_scheme-item-selected:hover {
+    border: transparent;
+}
+
+.places__tickets_carriage_price-container {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    justify-content: end;
+    align-items: end;
+    margin: 20px 20px 0 20px;
+}
+
+.places__tickets_carriage_price {
+    color: #FFA800;
+    font-size: 24px;
+    line-height: 17px;
+    font-weight: 700;
+}
+
+
 
 .places-button {
     display: flex;

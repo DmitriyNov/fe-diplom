@@ -4,7 +4,7 @@ import { Outlet, useOutletContext } from 'react-router-dom';
 
 export default function Tickets () {
 
-    const [selectPlaces, backToTrains, selectPassengers] = useOutletContext();
+    const [routesList, selectSeats, trainSeats, tickets, setTickets, selectPlaces, backToTrains, selectPassengers] = useOutletContext();
 
 
     return (
@@ -14,7 +14,7 @@ export default function Tickets () {
                 <LastTickets />
             </div>
             <div className="tickets__content-container">
-                <Outlet context={[selectPlaces, backToTrains, selectPassengers]}/>
+                <Outlet context={[routesList, selectSeats, trainSeats, tickets, setTickets, selectPlaces, backToTrains, selectPassengers]}/>
             </div>
         </div>
     )

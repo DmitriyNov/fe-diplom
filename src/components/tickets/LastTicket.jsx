@@ -1,8 +1,24 @@
 import { WiFi, Express, Food, Ruble } from "../icons/Icons";
 
-export default function LastTicket ({props}) {
+export default function LastTicket (props) {
 
-    const {fromCity, fromStation, toCity, toStation, options, price} = props;
+    const {ticket} = props;
+
+    const fromCity = ticket.departure.from.city.name;
+    const fromStation = ticket.departure.from.railway_station_name;
+    const toCity = ticket.departure.to.city.name
+    const toStation = ticket.departure.to.railway_station_name;
+    const options = [];
+    if (ticket.have_wifi) {
+        options.push("wi-fi");
+    };
+    if (ticket.is_express) {
+        options.push("express");
+    };
+    if (ticket.have_air_conditioning) {
+        options.push("food"); // заменить иконку
+    };
+    const price = ticket.min_price;
 
     return (
         <div className="last_ticket-container">
