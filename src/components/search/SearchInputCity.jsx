@@ -1,12 +1,16 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { getCities } from "../../api/appAPI";
 
-export default function SearchInputCity (props) {
+export default function SearchInputCity ({props}) {
     
-    const {inputs, setId} = props;
+    const {type, inputs, setId, cityText, cityId, setSearchData} = props;
 
-    const [value, setValue] = useState("");
+    const [value, setValue] = useState(cityText || "");
     const [citiesList, setCitiesList] = useState([]);
+
+    useEffect(() => {
+        setId(cityId || "");
+    }, []);
 
     function searchCities(value) {
         getCities(value, (response) => {
@@ -30,6 +34,11 @@ export default function SearchInputCity (props) {
         currentCity.toLowerCase();
         setValue(currentCity);
         setId(event.currentTarget.id);
+        if (type === "from") {
+            setSearchData(prev => ({...prev, fromCity: currentCity, fromCityId: event.currentTarget.id}));
+        } else {
+            setSearchData(prev => ({...prev, toCity: currentCity, toCityId: event.currentTarget.id}));
+        }
         setCitiesList([]);
     }
 

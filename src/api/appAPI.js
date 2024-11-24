@@ -54,3 +54,14 @@ export function getSeats (id, options, callback) {
         callback: callback,
     });
 }
+
+export function order (data, callback) {
+    createRequest({
+        url: "https://students.netoservices.ru/fe-diplom/order",
+        data: {
+            method: "POST",
+            body: data,
+        },
+        callback: callback,
+    });
+}

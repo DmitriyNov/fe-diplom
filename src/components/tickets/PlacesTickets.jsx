@@ -8,6 +8,7 @@ export default function PlacesTickets (props) {
     const {train, carriages, tickets, setTickets} = props;
 
     const [selectedType, setSelectedType] = useState("Взрослых");
+    const [ticetsTypesQuantity, setTicetsTypesQuantity] = useState([0, 0, 0]);
     const [activeType , setActiveType] = useState("");
     const [selectedCarriages, setSelectedCarriages] = useState([]);
     const [activeCarriages , setActiveCarriages] = useState([]);
@@ -26,17 +27,17 @@ export default function PlacesTickets (props) {
     const types = [
         {
             type: "Взрослых",
-            selected: 0,
+            selected: ticetsTypesQuantity[0],
             text: adultText,
         },
         {
             type: "Детских",
-            selected: 0,
+            selected: ticetsTypesQuantity[1],
             text: childrenText,
         },
         {
             type: "Детских «без места»",
-            selected: 0,
+            selected: ticetsTypesQuantity[2],
             text: null,
         },
     ];
@@ -148,7 +149,7 @@ export default function PlacesTickets (props) {
             </span>
             <div className="places__tickets-types">
                 {types.map((item, i) => (
-                    <PlacesTicketType key={i} props={{...item, left: left, selectedType: selectedType, selectType: selectType}} />
+                    <PlacesTicketType key={i} props={{...item, left: left, selectedType: selectedType, selectType: selectType, ticetsTypesQuantity: ticetsTypesQuantity, setTicetsTypesQuantity: setTicetsTypesQuantity}} />
                 ))}
             </div>
             <div className="places__tickets-carriages">
@@ -175,7 +176,7 @@ export default function PlacesTickets (props) {
             </div>}
             <div className="places__tickets-carriage-container">
                 {activeCarriages.map((item, i) => (
-                    <PlacesCarriage key={i} props={{...item, options: train.options, activeCarriages: activeCarriages, setActiveCarriages: setActiveCarriages, tickets: tickets, setTickets: setTickets}} />
+                    <PlacesCarriage key={i} props={{...item, direction: train.direction, options: train.options, activeCarriages: activeCarriages, setActiveCarriages: setActiveCarriages, tickets: tickets, setTickets: setTickets, selectedType: selectedType, left: left, setLeft: setLeft, ticetsTypesQuantity: ticetsTypesQuantity, setTicetsTypesQuantity: setTicetsTypesQuantity}} />
                 ))}
             </div>
         </div>

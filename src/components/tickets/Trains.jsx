@@ -23,7 +23,7 @@ export default function Trains () {
         <div className="trains-container">
             <div className="trains__sorting-container">
                 <div className="trains__found-container">
-                    <span>найдено </span><span className="trains__found">{routesList.total_count}</span>
+                    <span>найдено </span><span className="trains__found">{routesList.total_count || 0}</span>
                 </div>
                 <div className="trains__sort_show-container">
                     <div className="trains__sort-container">

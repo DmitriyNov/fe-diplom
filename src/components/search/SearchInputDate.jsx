@@ -1,10 +1,10 @@
 import { useState } from "react";
 
-export default function SearchInputDate (props) {
+export default function SearchInputDate ({props}) {
 
-    const {inputs, setDate} = props;
+    const {type, inputs, setDate, date, setSearchData} = props;
 
-    const [value, setValue] = useState("");
+    const [value, setValue] = useState(date || "");
 
     function tapValue (event) {
         let currentValue = event.target.value;
@@ -17,6 +17,11 @@ export default function SearchInputDate (props) {
             currentValue = currentValue + "/";
         }
         setValue(currentValue);
+        if (type === "from") {
+            setSearchData(prev => ({...prev, fromDate: currentValue}));
+        } else {
+            setSearchData(prev => ({...prev, toDate: currentValue}));
+        }
     }
 
     function dateDialed () {

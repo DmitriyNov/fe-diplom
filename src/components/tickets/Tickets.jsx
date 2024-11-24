@@ -4,8 +4,7 @@ import { Outlet, useOutletContext } from 'react-router-dom';
 
 export default function Tickets () {
 
-    const [routesList, selectSeats, trainSeats, tickets, setTickets, selectPlaces, backToTrains, selectPassengers] = useOutletContext();
-
+    const [ routesList, selectSeats, trainSeats, tickets, setTickets, passengers, setPassengers, user, setUser, selectPlaces, backToTrains, selectPassengers ] = useOutletContext();
 
     return (
         <div className="tickets">

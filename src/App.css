@@ -2143,6 +2143,7 @@ div:first-child {
     font-weight: 700;
     display: flex;
     flex-direction: column;
+    text-transform: capitalize;
 }
 
 .details__direction_info-text_cities {
@@ -2189,6 +2190,7 @@ div:first-child {
 
 .details__direction_info-city {
     color: #E5E5E5;
+    text-transform: capitalize;
 }
 
 .details__direction_info-station-special {
@@ -2468,6 +2470,31 @@ div:first-child {
     display: flex;
     flex-direction: row;
     justify-content: end;
+    align-items: center;
+    height: 60px;
+    font-size: 18px;
+}
+
+.passenger__info_footer-valid {
+    background-color: #B2F6A1;
+    color: #FFFFFF;
+    justify-content: space-between;
+}
+
+.passenger__info_footer-invalid {
+    background-color: #FF3D0061;
+    justify-content: space-between;
+}
+
+.passenger__info_footer-wraper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 15px;
+}
+
+.passenger__info_footer-wraper > svg {
+    flex-shrink: 0;
 }
 
 .passengers-button {
@@ -2555,7 +2582,7 @@ div:first-child {
     padding: 0px 15px;
 }
 
-.passenger__info-checkbox {
+.payment__info-checkbox {
     color: #928F94;
     font-size: 24px;
     display: flex;
@@ -2564,14 +2591,14 @@ div:first-child {
     gap: 20px;
 }
 
-.passenger__info-checkbox > div {
+.payment__info-checkbox > div {
     display: flex;
     flex-direction: row;
     align-items: center;
     cursor: pointer;
 }
 
-.passenger__info-input_checkbox {
+.payment__info-input_checkbox {
     height: 28px;
     width: 28px;
     border: 1px solid #928F94;
@@ -2579,17 +2606,49 @@ div:first-child {
     display: none;
 }
 
-.passenger__info-input_checkbox_text {
+.payment__info-input_checkbox_text {
     color: #FFA800;
 }
 
-.passenger__info-checkbox_options {
+.payment__info-checkbox_options {
     color: #292929;
     font-size: 24px;
     font-weight: 700;
     display: flex;
     flex-direction: row;
     gap: 80px;
+}
+
+.payment__info_footer {
+    padding: 34px 31px;
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    align-items: center;
+    height: 60px;
+    font-size: 18px;
+}
+
+.payment__info_footer-valid {
+    background-color: #B2F6A1;
+    color: #FFFFFF;
+    justify-content: space-between;
+}
+
+.payment__info_footer-invalid {
+    background-color: #FF3D0061;
+    justify-content: space-between;
+}
+
+.payment__info_footer-wraper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 15px;
+}
+
+.payment__info_footer-wraper > svg {
+    flex-shrink: 0;
 }
 
 .payment-button {

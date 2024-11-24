@@ -4,7 +4,7 @@ import { There, Back, ArrowThere, ArrowBack, Collapse, Disclose } from "../icons
 export default function DetailsDirection ({props}) {
 
     const {direction, number, startCity, fromCity, fromStation, toCity, toStation, times, date}  = props;
-    
+
     const [visibility, setVisibility] = useState(true);
 
     function collapse () {
@@ -14,11 +14,6 @@ export default function DetailsDirection ({props}) {
             setVisibility(true);
         }
     }
-
-    let dateFrom = date.from.split("-");
-    let dateTo = date.to.split("-");
-    dateFrom = dateFrom[2].concat(".", dateFrom[1], ".", dateFrom[0]);
-    dateTo = dateTo[2].concat(".", dateTo[1], ".", dateTo[0]);
 
     return (
         <div className="details__direction">
@@ -31,7 +26,7 @@ export default function DetailsDirection ({props}) {
                         {direction === "there" ? "Туда" : "Обратно"}
                     </span>
                     <span className="details__direction-date">
-                        {dateFrom}
+                        {date.from}
                     </span>
                 </div>
                 <div className="details__direction-collapse" onClick={collapse} >
@@ -70,7 +65,7 @@ export default function DetailsDirection ({props}) {
                             {direction === "there" ? times.from : times.to}
                         </span>
                         <span className="details__direction_info-date">
-                            {direction === "there" ? dateFrom : dateTo}
+                            {direction === "there" ? date.from : date.to}
                         </span>
                     </div>
                     <div className="details__direction_info-direction">
@@ -81,25 +76,25 @@ export default function DetailsDirection ({props}) {
                             {direction === "there" ? times.to : times.from}
                         </span>
                         <span className="details__direction_info-date">
-                            {direction === "there" ? dateTo : dateFrom}
+                            {direction === "there" ? date.to : date.from}
                         </span>
                     </div>
                 </div>
                 <div className="details__direction_info-container">
                     <div className="details__direction_info-city_container">
                         <span className="details__direction_info-city">
-                            {fromCity}
+                            {direction === "there" ? fromCity : toCity}
                         </span>
                         <span>
-                            {fromStation}
+                            {direction === "there" ? fromStation : toStation}
                         </span>
                     </div>
                     <div className="details__direction_info-city_container">
                         <span className="details__direction_info-city">
-                            {toCity}
+                            {direction === "there" ? toCity : fromCity}
                         </span>
                         <span className="details__direction_info-station-special">
-                            {toStation}
+                            {direction === "there" ? toStation : fromStation}
                         </span>
                     </div>
                 </div>

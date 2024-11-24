@@ -3,9 +3,12 @@ import Order from "./Order";
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { getRoutes, getSeats } from "../../api/appAPI";
+import { useOutletContext } from 'react-router-dom';
 
 
 export default function OrderPage () {
+
+    const [ searchData, setSearchData, routesList, setRoutesList ] = useOutletContext();
 
     const [steps, setSteps] = useState([
         {
@@ -34,26 +37,35 @@ export default function OrderPage () {
         },
     ]);
 
-    // function setStepHandle (step) {
-    //     const currentSteps = steps.map((item, i) => {
-    //         if (i <= step) {
-    //             item.status = "step-active";
-    //         } else {
-    //             item.status = "";
-    //         }
-    //     });
-    //     setSteps(currentSteps);
-    // };
+    function setStepHandle (step) {
+        const currentSteps = steps.map((item, i) => {
+            if (i < step) {
+                item.status = "step-active";
+            } else {
+                item.status = "";
+            }
+            return item;
+        });
+        setSteps(currentSteps);
+    };
 
-    const [routesList, setRoutesList] = useState({});
     const [selectedRoute, setSelectedRoute] = useState({});
     const [trainSeats, setTrainSeats] = useState([]);
     const [tickets, setTickets] = useState([]);
+    const [passengers, setPassengers] = useState([]);
+    const [user, setUser] = useState({
+        first_name: "",
+        last_name: "",
+        patronymic: "",
+        phone: "",
+        email: "",
+        payment_method: "",
+    });
 
     const navigation = useNavigate();
 
-    function startSearch (idFrom, idTo, dateFrom, dateTo) {
-        const options = {from_city_id: idFrom, to_city_id: idTo, date_start: dateFrom, date_end: dateTo};
+    function startSearch (options) {
+        setSearchData(options);
         getRoutes(options, (response) => {
             setRoutesList(response);
         });
@@ -68,7 +80,7 @@ export default function OrderPage () {
                 if (Array.isArray(response)) {
                     currentSeats.push(response);
                     navigation("/order/tickets/places"); // Мне пару раз прихдил пустой ответ, поэтоу прехожу далее только после проверки ответа от сервера
-                    //setStepHandle(1);
+                    setStepHandle(1);
                 } else {
                     console.log(response);
                 }
@@ -79,7 +91,7 @@ export default function OrderPage () {
 
     useEffect(() => {
         navigation("/order/tickets/train");
-        //setStepHandle(1);
+        setStepHandle(1);
     }, []);
 
     function selectPlaces (id, trainData) {
@@ -90,32 +102,32 @@ export default function OrderPage () {
 
     function backToTrains () {
         navigation("/order/tickets/train");
-        //setStepHandle(1);
+        setStepHandle(1);
     }
 
     function selectPassengers () {
         navigation("/order/passengers");
-        //setStepHandle(2);
+        setStepHandle(2);
     }
 
     function selectPayment () {
         navigation("/order/payment");
-        //setStepHandle(3);
+        setStepHandle(3);
     }
 
     function selectVerification () {
         navigation("/order/verification");
-        //setStepHandle(4);
+        setStepHandle(4);
     }
 
     function confirmOrder () {
         navigation("/confirmation");
     };
-    
+
     return (
         <div className="order_page">
-            <StepsScreen steps={steps} startSearch={startSearch} />
-            <Order routesList={routesList} selectedRoute={selectedRoute} trainSeats={trainSeats} tickets ={tickets} setTickets={setTickets} selectPlaces={selectPlaces} backToTrains={backToTrains} selectPassengers={selectPassengers} selectPayment={selectPayment} selectVerification={selectVerification} confirmOrder={confirmOrder} />
+            <StepsScreen props={{steps: steps, startSearch: startSearch, searchData: searchData, setSearchData: setSearchData}} />
+            <Order routesList={routesList} selectedRoute={selectedRoute} trainSeats={trainSeats} tickets ={tickets} setTickets={setTickets} passengers={passengers} setPassengers={setPassengers} user={user} setUser={setUser} selectPlaces={selectPlaces} backToTrains={backToTrains} selectPassengers={selectPassengers} selectPayment={selectPayment} selectVerification={selectVerification} confirmOrder={confirmOrder} />
         </div>
     )
 }

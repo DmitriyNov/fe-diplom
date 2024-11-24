@@ -3,7 +3,7 @@ import { Ruble, ConditionerOption, WiFiOption, LinenOption, FoodOption } from ".
 
 export default function PlacesCarriage ({props}) {
 
-    const {name, type, quantity, places, options, seats, activeCarriages, setActiveCarriages, tickets, setTickets} = props;
+    const {id, name, type, quantity, places, direction, options, seats, activeCarriages, setActiveCarriages, tickets, setTickets, selectedType, left, setLeft, ticetsTypesQuantity, setTicetsTypesQuantity} = props;
 
     const [price, setPrice] = useState(0);
 
@@ -47,22 +47,48 @@ export default function PlacesCarriage ({props}) {
             seats.map((items) => {
                 items.map((item) => {
                     if (item.index === +event.currentTarget.id && !item.selected && item.available) {
-                        item.selected = true;
-                        setPrice(price + item.price);
-                        tickets.push({
-                            carriageName: name,
-                            type: "", //Добавить тип билета взрослый/детский
-                            seats: item.index,
-                            price: item.price,
-                        });
-                        console.log(tickets);
-                        setTickets(tickets);
+                        if (left > 0) {
+                            item.selected = true;
+                            let currentPrice;
+                            if (selectedType === "Взрослых") {
+                                ticetsTypesQuantity[0] = ticetsTypesQuantity[0] + 1;
+                                currentPrice = item.price;
+                            } else if (selectedType === "Детских") {
+                                ticetsTypesQuantity[1] = ticetsTypesQuantity[1] + 1;
+                                currentPrice = Math.round(item.price * 0.5);
+                            } else {
+                                //Что делать с билетами "Детсикй без места" я пока не придумал
+                            }
+                            setTicetsTypesQuantity([...ticetsTypesQuantity]);
+                            setPrice(price + currentPrice);
+                            setLeft(left - 1);
+                            tickets.push({
+                                direction: direction,
+                                carriageName: name,
+                                carriageId: id,
+                                type: selectedType === "Взрослых" ? "adult" : selectedType === "Детских" ? "child" : "baby",
+                                seats: item.index,
+                                price: currentPrice,
+                            });
+                            setTickets(tickets);
+                        }
                     } else if (item.index === +event.currentTarget.id && item.selected) {
                         item.selected = false;
-                        setPrice(price - item.price);
+                        let currentPrice;
+                        if (selectedType === "Взрослых") {
+                            ticetsTypesQuantity[0] = ticetsTypesQuantity[0] - 1;
+                            currentPrice = item.price;
+                        } else if (selectedType === "Детских") {
+                            ticetsTypesQuantity[1] = ticetsTypesQuantity[1] - 1;
+                            currentPrice = Math.round(item.price * 0.5);
+                        } else {
+                            //Что делать с билетами "Детсикй без места" я пока не придумал
+                        }
+                        setTicetsTypesQuantity([...ticetsTypesQuantity]);
+                        setPrice(price - currentPrice);
+                        setLeft(left + 1);
                         const currentTickets = tickets.filter((ticket) => !(ticket.seats === item.index && ticket.carriageName === name));
                         setTickets([...currentTickets]);
-                        console.log(currentTickets);
                     }
                 });
             });
@@ -72,23 +98,23 @@ export default function PlacesCarriage ({props}) {
                     item.selected = true;
                     setPrice(price + item.price);
                     tickets.push({
+                        direction: direction,
                         carriageName: name,
-                        type: "", //Добавить тип билета взрослый/детский
+                        carriageId: id,
+                        type: selectedType === "Взрослых" ? "adult" : selectedType === "Детских" ? "child" : "baby",
                         seats: item.index,
                         price: item.price,
                     });
-                    console.log(tickets);
                     setTickets(tickets);
                 } else if (item.index === +event.currentTarget.id && item.selected) {
                     item.selected = false;
                     setPrice(price - item.price);
                     const currentTickets = tickets.filter((ticket) => !(ticket.seats === item.index && ticket.carriageName === name));
                     setTickets([...currentTickets]);
-                    console.log(currentTickets);
                 }
             });
         }
-        
+
         activeCarriages.map((item, i) => {
             if (item.name === name) {
                 activeCarriages[i].seats = seats;

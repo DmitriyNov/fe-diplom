@@ -5,7 +5,7 @@ import Button from "../ui/Button";
 
 export default function Train (props) {
 
-    const {trainData, selectPlaces} = props;
+    const {trainData, selectPlaces, change} = props;
 
     const number = trainData.departure.train.name;
     const startCity = ""; // не нашёл такой информации
@@ -52,7 +52,7 @@ export default function Train (props) {
     const places = []; // код ниже конечно лучше отрефакторить
     if (trainData.available_seats_info.fourth > 0) {
         let lowestPriceArrival = 0;
-        if (trainData.arrival.price_info) {
+        if (trainData.arrival !== undefined) {
             for (let price in trainData.arrival.price_info.fourth) {
                 if (trainData.arrival.price_info.fourth[price] < lowestPriceArrival || lowestPriceArrival === 0) {
                     lowestPriceArrival = trainData.arrival.price_info.fourth[price];
@@ -60,7 +60,7 @@ export default function Train (props) {
             }
         } 
         let lowestPriceDeparture = 0;
-        if (trainData.departure.price_info) {
+        if (trainData.departure !== undefined) {
             for (let price in trainData.departure.price_info.fourth) {
                 if (trainData.departure.price_info.fourth[price] < lowestPriceDeparture || lowestPriceDeparture === 0) {
                     lowestPriceDeparture = trainData.departure.price_info.fourth[price];
@@ -81,7 +81,7 @@ export default function Train (props) {
     };
     if (trainData.available_seats_info.third > 0) {
         let lowestPriceArrival = 0;
-        if (trainData.arrival.price_info) {
+        if (trainData.arrival !== undefined) {
             for (let price in trainData.arrival.price_info.third) {
                 if (trainData.arrival.price_info.third[price] < lowestPriceArrival || lowestPriceArrival === 0) {
                     lowestPriceArrival = trainData.arrival.price_info.third[price];
@@ -89,7 +89,7 @@ export default function Train (props) {
             }
         } 
         let lowestPriceDeparture = 0;
-        if (trainData.departure.price_info) {
+        if (trainData.departure !== undefined) {
             for (let price in trainData.departure.price_info.third) {
                 if (trainData.departure.price_info.third[price] < lowestPriceDeparture || lowestPriceDeparture === 0) {
                     lowestPriceDeparture = trainData.departure.price_info.third[price];
@@ -110,7 +110,7 @@ export default function Train (props) {
     };
     if (trainData.available_seats_info.second > 0) {
         let lowestPriceArrival = 0;
-        if (trainData.arrival.price_info) {
+        if (trainData.arrival !== undefined) {
             for (let price in trainData.arrival.price_info.second) {
                 if (trainData.arrival.price_info.second[price] < lowestPriceArrival || lowestPriceArrival === 0) {
                     lowestPriceArrival = trainData.arrival.price_info.second[price];
@@ -118,7 +118,7 @@ export default function Train (props) {
             }
         } 
         let lowestPriceDeparture = 0;
-        if (trainData.departure.price_info) {
+        if (trainData.departure !== undefined) {
             for (let price in trainData.departure.price_info.second) {
                 if (trainData.departure.price_info.second[price] < lowestPriceDeparture || lowestPriceDeparture === 0) {
                     lowestPriceDeparture = trainData.departure.price_info.second[price];
@@ -139,7 +139,7 @@ export default function Train (props) {
     };
     if (trainData.available_seats_info.first > 0) {
         let lowestPriceArrival = 0;
-        if (trainData.arrival.price_info) {
+        if (trainData.arrival !== undefined) {
             for (let price in trainData.arrival.price_info.first) {
                 if (trainData.arrival.price_info.first[price] < lowestPriceArrival || lowestPriceArrival === 0) {
                     lowestPriceArrival = trainData.arrival.price_info.first[price];
@@ -147,7 +147,7 @@ export default function Train (props) {
             }
         } 
         let lowestPriceDeparture = 0;
-        if (trainData.departure.price_info) {
+        if (trainData.departure !== undefined) {
             for (let price in trainData.departure.price_info.first) {
                 if (trainData.departure.price_info.first[price] < lowestPriceDeparture || lowestPriceDeparture === 0) {
                     lowestPriceDeparture = trainData.departure.price_info.first[price];
@@ -168,25 +168,31 @@ export default function Train (props) {
     };
     
 
-    const button = {
-        size: "button-small",
-        decor: "button-orange_white",
-        text: "Выбрать места",
-        onClick: () => {
-            let id = [];
-            let routeData = [];
-            if (trainData.arrival._id) {
-                id.push(trainData.arrival._id);
-                trainData.arrival.type = "there";
-                routeData.push(trainData.arrival);
-            }
-            if (trainData.departure._id) {
-                id.push(trainData.departure._id);
-                trainData.departure.type = "back";
-                routeData.push(trainData.departure);
-            }
-            selectPlaces(id, routeData);
-        },
+    let button = {};
+
+    if (change) {
+        button = change;
+    } else {
+        button = {
+            size: "button-small",
+            decor: "button-orange_white",
+            text: "Выбрать места",
+            onClick: () => {
+                let id = [];
+                let routeData = [];
+                if (trainData.arrival !== undefined) {
+                    id.push(trainData.arrival._id);
+                    trainData.arrival.type = "there";
+                    routeData.push(trainData.arrival);
+                }
+                if (trainData.departure !== undefined) {
+                    id.push(trainData.departure._id);
+                    trainData.departure.type = "back";
+                    routeData.push(trainData.departure);
+                }
+                selectPlaces(id, routeData);
+            },
+        }
     }
 
     return (

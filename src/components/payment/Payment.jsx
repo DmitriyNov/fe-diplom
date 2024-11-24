@@ -1,32 +1,64 @@
 import Details from "../order/Details";
+import PaymentInput from "./PaymentInput";
 import Button from "../ui/Button";
-import { Unchecked, Checked } from "../icons/Icons";
+import { Unchecked, Checked, Invalid, Valid } from "../icons/Icons";
 import { useState } from "react";
 import { useOutletContext } from "react-router-dom";
 
 export default function Payment () {
     
-    const [selectPlaces, backToTrains, selectPassengers, selectPayment, selectVerification] = useOutletContext();
-
-    const [user, setUser ] = useState({
-        first_name: "",
-        last_name: "",
-        patronymic: "",
-        phone: "",
-        email: "",
-        payment_method: "",
-    });
+    const [routesList, selectedRoute, trainSeats, tickets, setTickets, passengers, setPassengers, user, setUser, selectPlaces, backToTrains, selectPassengers, selectPayment, selectVerification] = useOutletContext();
 
     const [currentPaymentMethod, setCurrentPaymentMethod] = useState("");
+    const [status, setStatus] = useState(null);
+    const [faultText, setFaultText] = useState("");
 
-    const button = {
-        size: "button-large",
-        decor: "button-orange_white",
-        text: "КУПИТЬ БИЛЕТЫ",
-        onClick: () => {
-            selectVerification();
-        },
+    function selectValue (event) {
+        const value = event.currentTarget.value;
+        for (let key in user) {
+            if (key === event.currentTarget.id) {
+                user[key] = value;
+            }
+        };
+        setUser({...user});
     };
+
+    function validateInput (event) {
+        const value = event.currentTarget.value;
+        if (value.length === 0) {
+            return;
+        }
+        if (event.currentTarget.id === "phone") {
+            const currentvalue = value.split("-").reduce((acc, item) => acc + item, "");
+            const filter = new RegExp("^[0-9]{11}$");
+            if (!filter.test(currentvalue)) {
+                setStatus("invalid");
+                setFaultText("Пожалуйста, введите корректный номер телефона.");
+                return;
+            } else {
+                selectValue(event);
+                setStatus("");
+                setFaultText("");
+            }
+        } else if (event.currentTarget.id === "email") {
+            const filter = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/iu;
+            if (!filter.test(value)) {
+                setStatus("invalid");
+                setFaultText("Пожалуйста, введите корректный E-mail.");
+                return;
+            } else {
+                selectValue(event);
+                setStatus("");
+                setFaultText("");
+            }
+        } else {
+            if (value.length > 1) {
+                selectValue(event);
+                setStatus("");
+                setFaultText("");
+            }
+        }
+    }
 
     function setCheckbox (event) {
         if (event.currentTarget.id === "online" && currentPaymentMethod !== "online") {
@@ -46,10 +78,37 @@ export default function Payment () {
         }
     }
 
+    function validateForm () {
+        setFaultText("");
+        if (!user.first_name || !user.last_name || !user.patronymic || !user.phone || !user.email) {
+            setStatus("invalid");
+            setFaultText(`Пожалуйста, введите ${(!user.last_name ? "фамилию." : !user.first_name ? "имя." : !user.patronymic ? "отчество." : !user.phone ? "номер телефона." : "E-mail.")}`);
+            return false;
+        } else if (!user.payment_method) {
+            setStatus("invalid");
+            setFaultText("Пожалуйста, выберите способ оплаты.");
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    const button = {
+        size: "button-large",
+        decor: "button-orange_white",
+        text: "КУПИТЬ БИЛЕТЫ",
+        onClick: () => {
+            const formValide = validateForm()
+            if (formValide) {
+                selectVerification();
+            }
+        },
+    };
+
     return (
         <div className="payment">
             <div className="payment__aside_widget-container">
-                <Details />
+                <Details props={{ selectedRoute: selectedRoute, tickets: tickets}} />
             </div>
             <div className="payment__content-container">
                 <div className="payment-container">
@@ -63,27 +122,27 @@ export default function Payment () {
                             <div>
                                 <label className="payment__info-label">
                                     Фамилия
-                                    <input className="payment__info-input" type="text" />
+                                    <PaymentInput id="last_name" placeholder="" lastValue={user.last_name} onBlur={validateInput}/>
                                 </label>
                                 <label className="payment__info-label">
                                     Имя
-                                    <input className="payment__info-input" type="text" />
+                                    <PaymentInput id="first_name" placeholder="" lastValue={user.last_name} onBlur={validateInput}/>
                                 </label>
                                 <label className="payment__info-label">
                                     Отчество
-                                    <input className="payment__info-input" type="text" />
+                                    <PaymentInput id="patronymic" placeholder="" lastValue={user.last_name} onBlur={validateInput}/>
                                 </label>
                             </div>
                             <div>
                                 <label className="payment__info-label">
                                     Контактный телефон
-                                    <input className="payment__info-input" type="text" />
+                                    <PaymentInput id="phone" placeholder="8-_ _ _-_ _ _-_ _-_ _" lastValue={user.last_name} onBlur={validateInput}/>
                                 </label>
                             </div>
                             <div>
                                 <label className="payment__info-label">
                                     E-mail
-                                    <input className="payment__info-input" type="text" />
+                                    <PaymentInput id="email" placeholder="" lastValue={user.last_name} onBlur={validateInput}/>
                                 </label>
                             </div>
                         </form>
@@ -96,16 +155,16 @@ export default function Payment () {
                     <div className="payment__info">
                         <form className="payment__info_form payment__info_form-payment">
                             <div>
-                                <div className="passenger__info-checkbox">
-                                    <input className="passenger__info-input_checkbox" type="checkbox" />
+                                <div className="payment__info-checkbox">
+                                    <input className="payment__info-input_checkbox" type="checkbox" />
                                     <div id="online" onClick={setCheckbox}>
                                         {(user.payment_method === "online") ? <Checked /> : <Unchecked />}
                                     </div>
-                                    <span className={(user.payment_method === "online") ? "passenger__info-input_checkbox_text" : ""}>
+                                    <span className={(user.payment_method === "online") ? "payment__info-input_checkbox_text" : ""}>
                                         Онлайн
                                     </span>
                                 </div>
-                                <div className="passenger__info-checkbox_options">
+                                <div className="payment__info-checkbox_options">
                                     <span>
                                         Банковской<br/>картой
                                     </span>
@@ -118,12 +177,12 @@ export default function Payment () {
                                 </div>
                             </div>
                             <div>
-                                <div className="passenger__info-checkbox">
-                                    <input className="passenger__info-input_checkbox" type="checkbox"/>
+                                <div className="payment__info-checkbox">
+                                    <input className="payment__info-input_checkbox" type="checkbox"/>
                                     <div id="cash" onClick={setCheckbox}>
                                         {(user.payment_method === "cash") ? <Checked /> : <Unchecked />}
                                     </div>
-                                    <span className={(user.payment_method === "cash") ? "passenger__info-input_checkbox_text" : ""}>
+                                    <span className={(user.payment_method === "cash") ? "payment__info-input_checkbox_text" : ""}>
                                         Наличными
                                     </span>
                                 </div>
@@ -131,6 +190,21 @@ export default function Payment () {
                         </form>
                     </div>
                 </div>
+                {((status === "valid") ? 
+                    <div className={"payment__info_footer " + ((status === "valid") ? "payment__info_footer-valid" : (status === "invalid") ? "payment__info_footer-invalid" : "")} >
+                        <div className="payment__info_footer-wraper">
+                            <Valid />
+                            Готово
+                        </div>
+                    </div>
+                : (status === "invalid") ? 
+                    <div className={"payment__info_footer " + ((status === "valid") ? "payment__info_footer-valid" : (status === "invalid") ? "payment__info_footer-invalid" : "")} > 
+                        <div className="payment__info_footer-wraper">
+                            <Invalid />
+                            {faultText}
+                        </div>
+                    </div> 
+                : "")}
                 <div className="payment-button">
                     <Button props={button} />
                 </div>

@@ -240,6 +240,7 @@ export default function Places () {
             }
 
             const currentCariage = {
+                id: carriage.coach._id,
                 name: cariageName,
                 type: (carriage.coach.class_type === "fourth") ? "Сидячий" : (carriage.coach.class_type === "third") ? "Плацкарт" : (carriage.coach.class_type === "second") ? "Купе" : "Люкс",
                 quantity: carriage.coach.available_seats,
