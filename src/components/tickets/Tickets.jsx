@@ -4,12 +4,12 @@ import { Outlet, useOutletContext } from 'react-router-dom';
 
 export default function Tickets () {
 
-    const [ routesList, selectSeats, trainSeats, tickets, setTickets, passengers, setPassengers, user, setUser, selectPlaces, backToTrains, selectPassengers ] = useOutletContext();
+    const [ routesList, selectSeats, trainSeats, tickets, setTickets, passengers, setPassengers, user, setUser, selectPlaces, backToTrains, selectPassengers, selectPayment, selectVerification, confirmOrder, setOrderData, searchData, setSearchData, startSearch ] = useOutletContext();
 
     return (
         <div className="tickets">
             <div className="tickets__aside_widget-container">
-                <Filter />
+                <Filter props={{searchData: searchData, setSearchData: setSearchData, startSearch: startSearch}} />
                 <LastTickets />
             </div>
             <div className="tickets__content-container">

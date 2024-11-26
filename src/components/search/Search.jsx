@@ -6,12 +6,12 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from "react";
 
 export default function Search ({props}) {
-
+    
     const {styles, startSearch, searchData, setSearchData} = props;
-    const [idFrom, setIdFrom] = useState("");
-    const [idTo, setIdTo] = useState("");
-    const [dateFrom, setDateFrom] = useState("");
-    const [dateTo, setDateTo] = useState("");
+    const [idFrom, setIdFrom] = useState(searchData.fromCity || "");
+    const [idTo, setIdTo] = useState(searchData.toCity || "");
+    const [dateFrom, setDateFrom] = useState(searchData.fromDate || "");
+    const [dateTo, setDateTo] = useState(searchData.toDate || "");
     const inputs = [
         {
             icon: <Marker />,

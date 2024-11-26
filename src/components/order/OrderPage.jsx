@@ -8,7 +8,7 @@ import { useOutletContext } from 'react-router-dom';
 
 export default function OrderPage () {
 
-    const [ searchData, setSearchData, routesList, setRoutesList ] = useOutletContext();
+    const [ searchData, setSearchData, routesList, setRoutesList, orderData, setOrderData ] = useOutletContext();
 
     const [steps, setSteps] = useState([
         {
@@ -65,7 +65,6 @@ export default function OrderPage () {
     const navigation = useNavigate();
 
     function startSearch (options) {
-        setSearchData(options);
         getRoutes(options, (response) => {
             setRoutesList(response);
         });
@@ -127,7 +126,7 @@ export default function OrderPage () {
     return (
         <div className="order_page">
             <StepsScreen props={{steps: steps, startSearch: startSearch, searchData: searchData, setSearchData: setSearchData}} />
-            <Order routesList={routesList} selectedRoute={selectedRoute} trainSeats={trainSeats} tickets ={tickets} setTickets={setTickets} passengers={passengers} setPassengers={setPassengers} user={user} setUser={setUser} selectPlaces={selectPlaces} backToTrains={backToTrains} selectPassengers={selectPassengers} selectPayment={selectPayment} selectVerification={selectVerification} confirmOrder={confirmOrder} />
+            <Order routesList={routesList} selectedRoute={selectedRoute} trainSeats={trainSeats} tickets ={tickets} setTickets={setTickets} passengers={passengers} setPassengers={setPassengers} user={user} setUser={setUser} selectPlaces={selectPlaces} backToTrains={backToTrains} selectPassengers={selectPassengers} selectPayment={selectPayment} selectVerification={selectVerification} confirmOrder={confirmOrder} setOrderData={setOrderData} searchData={searchData} setSearchData={setSearchData} startSearch={startSearch} />
         </div>
     )
 }

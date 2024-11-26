@@ -1,10 +1,26 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import Calendar from "../ui/Calendar";
 
 export default function SearchInputDate ({props}) {
 
     const {type, inputs, setDate, date, setSearchData} = props;
 
     const [value, setValue] = useState(date || "");
+    const [tooltip, setTooltip] = useState(false);
+
+    function showTooltip () {
+        setTooltip(true);
+    }
+
+    useEffect(() => {
+        setTooltip(false);
+        if (type === "from") {
+            setSearchData(prev => ({...prev, fromDate: value}));
+        } else {
+            setSearchData(prev => ({...prev, toDate: value}));
+        }
+        dateDialed();
+    }, [value])
 
     function tapValue (event) {
         let currentValue = event.target.value;
@@ -17,11 +33,6 @@ export default function SearchInputDate ({props}) {
             currentValue = currentValue + "/";
         }
         setValue(currentValue);
-        if (type === "from") {
-            setSearchData(prev => ({...prev, fromDate: currentValue}));
-        } else {
-            setSearchData(prev => ({...prev, toDate: currentValue}));
-        }
     }
 
     function dateDialed () {
@@ -34,10 +45,13 @@ export default function SearchInputDate ({props}) {
 
     return (
         <div className="search__input-container">
-            <input className="search__input" placeholder={inputs.text} value={value} onInput={tapValue} onBlur={dateDialed} />
+            <input className="search__input" placeholder={inputs.text} value={value} onInput={tapValue} onBlur={dateDialed} onFocus={showTooltip}/>
             <div className="search__icon-container">
                 {inputs.icon}
             </div>
+            {!tooltip || <div className="search__input-tooltip">
+                <Calendar setValue={setValue} />
+            </div>}
         </div>
     )
 }

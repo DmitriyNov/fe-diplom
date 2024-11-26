@@ -8,7 +8,7 @@ import { useOutletContext } from "react-router-dom";
 
 export default function Verification () {
 
-    const [routesList, selectedRoute, trainSeats, tickets, setTickets, passengers, setPassengers, user, setUser, selectPlaces, backToTrains, selectPassengers, selectPayment, selectVerification, confirmOrder] = useOutletContext();
+    const [routesList, selectedRoute, trainSeats, tickets, setTickets, passengers, setPassengers, user, setUser, selectPlaces, backToTrains, selectPassengers, selectPayment, selectVerification, confirmOrder, setOrderData] = useOutletContext();
 
     let trainData = {};
     routesList.items.map((route) => {
@@ -93,6 +93,12 @@ export default function Verification () {
         onClick: () => {
             order(orderData, (response) => {
                 if (response.status) {
+                    setOrderData(
+                        {
+                            price: tickets.reduce((acc, item) => acc + item.price, 0),
+                            user: user,
+                        }
+                    );
                     confirmOrder();
                 } else {
                     console.log("заказ не совершён");

@@ -10,6 +10,8 @@ export default function Passenger ({props}) {
     const [visibility, setVisibility] = useState(true);
     const [status, setStatus] = useState(null);
     const [faultText, setFaultText] = useState("");
+    const [documentSeries, setDocumentSeries] = useState("");
+    const [documentNumber, setDocumentNumber] = useState("");
 
     function collapse () {
         if (visibility) {
@@ -75,9 +77,15 @@ export default function Passenger ({props}) {
         passengers.forEach((item) => {
             if (item.id === id) {
                 if (event.currentTarget.id === "document_data_series") {
-                    item.document_data = value + " ";
+                    setDocumentSeries(value);
+                    if (documentNumber !== "") {
+                        item.document_data = value + " " + documentNumber;
+                    }
                 } else if (event.currentTarget.id === "document_data_number") {
-                    item.document_data = item.document_data + value;
+                    setDocumentNumber(value);
+                    if (documentSeries !== "") {
+                        item.document_data = documentSeries + " " + value;
+                    }
                 } else {
                     item[event.currentTarget.id] = value;
                 }
@@ -89,7 +97,7 @@ export default function Passenger ({props}) {
     function validateInput (event) {
         const value = event.currentTarget.value;
         if (value.length === 0) {
-            return;
+            selectValue(event);
         }
         if (event.currentTarget.id === "birthday") {
             const day = Number(value.slice(0, 2));
@@ -132,9 +140,7 @@ export default function Passenger ({props}) {
             const filterSeries = new RegExp("^[IVXLCDM]{1,5}[-|s][А-ЯЁ]{2}$");
             const filterNumber = new RegExp("^[0-9]{6}$");
             const series = value.replace(value.slice(-7), "");
-            console.log(series);
             const number = value.slice(-6);
-            console.log(number);
             if (!filterSeries.test(series) || !filterNumber.test(number)) {
                 setStatus("invalid");
                 setFaultText("Пожалуйста, введите корректный номер свидетельства о рождении.");
@@ -261,11 +267,11 @@ export default function Passenger ({props}) {
                         {document_type === "Паспорт РФ" && 
                         <label className="passenger__info-label">
                             Серия
-                            <PassengerInput id="document_data_series" placeholder="_ _ _ _" lastValue={""} onBlur={validateInput}/>
+                            <PassengerInput id="document_data_series" placeholder="_ _ _ _" lastValue={documentSeries} onBlur={validateInput}/>
                         </label>}
                         <label className="passenger__info-label">
                             Номер
-                            <PassengerInput id="document_data_number" placeholder="_ _ _ _ _ _" lastValue={""} onBlur={validateInput}/>
+                            <PassengerInput id="document_data_number" placeholder="_ _ _ _ _ _" lastValue={documentNumber} onBlur={validateInput}/>
                         </label>
                     </div>
                 </div>

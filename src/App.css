@@ -68,6 +68,100 @@
     background-color: #FFA800;
 }
 
+.button-unactive {
+    color: #FFF;
+    border: none;
+    background-color: #928F94;
+    cursor: auto;
+}
+
+.datepicker {
+    width: 100%;
+}
+
+.datepicker-header {
+
+}
+
+.datepicker-title {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    padding-bottom: 15px;
+}
+
+.datepicker-title > div {
+    width: 30px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.datepicker-month {
+    font-size: 24px;
+}
+
+
+.datepicker-calendar {
+
+}
+
+
+.datepicker-calendar {
+    width: 100%;
+    border-collapse: collapse;
+    font-weight: 400;
+}
+
+.datepicker-calendar > tbody {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.datepicker-calendar > tbody > tr {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.datepicker-calendar td {
+    background: none;
+    border: 2px solid transparent;
+    text-align: center;
+    height: 30px;
+    width: 30px;
+    line-height: 36px;
+    cursor: pointer;
+}
+
+.datepicker-calendar td:not(.datepicker-other_month):hover {
+    background-color: #FFA8004F;
+    border: 2px solid #FFA800;
+    border-radius: 5px;
+}
+
+.datepicker-calendar td:nth-child(n + 6) {
+    font-weight: 700;
+}
+
+.datepicker-other_month {
+    opacity: 0.3;
+    cursor: auto !important;
+}
+
+.datepicker_today {
+    color: #FFA800;
+}
+
+
+
+
+
+
+
+
 .header {
 
 }
@@ -467,7 +561,7 @@
 
 .search__input-cities_list {
     position: absolute;
-    z-index: 3;
+    z-index: 10;
     top: 65px;
     display: flex;
     flex-direction: column;
@@ -508,6 +602,20 @@
 
 .search__update-icon {
 
+}
+
+.search__input-tooltip {
+    position: absolute;
+    z-index: 5;
+    top: 65px;
+    box-sizing: border-box;
+    width: 325px;
+    padding: 20px;
+    font-size: 18px;
+    color: #292929;
+    border-radius: 3px;
+    background-color: #F5F4F6;
+    box-shadow: 0px 4px 4px 0px #00000040;
 }
 
 .order_page {

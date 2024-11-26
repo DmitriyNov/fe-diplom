@@ -9,7 +9,7 @@ export default function FilterOption ({props}) {
 
     const handleChange = (checked) => {
         setChecked(checked);
-        // onChangeFilter(event);
+        onChangeFilter();
     };
 
     return (

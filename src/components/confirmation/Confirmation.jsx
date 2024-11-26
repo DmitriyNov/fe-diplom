@@ -1,13 +1,16 @@
-import { useState } from "react";
 import { Ruble, Star } from "../icons/Icons";
 import Instruction from "./Instruction";
 import Button from "../ui/Button";
+import { useState } from "react";
+import { useOutletContext } from "react-router-dom";
 
 export default function Confirmation () {
 
-    const orderNumber = "285AA";
-    const orderAmount = 7760;
-    const userName = "Ирина Эдуардовна";
+    const [ searchData, setSearchData, routesList, setRoutesList, orderData ] = useOutletContext();
+
+    const orderNumber = "285AA"; // Было бы круто, если бы номер заказа приходил с сервера в слчае успешного совершения заказа
+    const orderAmount = orderData.price;
+    const userName = orderData.user.first_name + " " + orderData.user.patronymic;
 
     const instructions = [
         {

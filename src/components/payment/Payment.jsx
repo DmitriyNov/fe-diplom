@@ -2,16 +2,28 @@ import Details from "../order/Details";
 import PaymentInput from "./PaymentInput";
 import Button from "../ui/Button";
 import { Unchecked, Checked, Invalid, Valid } from "../icons/Icons";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useOutletContext } from "react-router-dom";
 
 export default function Payment () {
     
     const [routesList, selectedRoute, trainSeats, tickets, setTickets, passengers, setPassengers, user, setUser, selectPlaces, backToTrains, selectPassengers, selectPayment, selectVerification] = useOutletContext();
 
+    const [button, setButton] = useState({});
     const [currentPaymentMethod, setCurrentPaymentMethod] = useState("");
     const [status, setStatus] = useState(null);
     const [faultText, setFaultText] = useState("");
+
+    useEffect(() => {
+        setButton({
+            size: "button-large",
+            decor: "button-unactive",
+            text: "КУПИТЬ БИЛЕТЫ",
+            onClick: () => {
+                validateForm();
+            },
+        });
+    }, []);
 
     function selectValue (event) {
         const value = event.currentTarget.value;
@@ -21,12 +33,13 @@ export default function Payment () {
             }
         };
         setUser({...user});
+        console.log(user);
     };
 
     function validateInput (event) {
         const value = event.currentTarget.value;
         if (value.length === 0) {
-            return;
+            selectValue(event);
         }
         if (event.currentTarget.id === "phone") {
             const currentvalue = value.split("-").reduce((acc, item) => acc + item, "");
@@ -93,17 +106,38 @@ export default function Payment () {
         }
     }
 
-    const button = {
-        size: "button-large",
-        decor: "button-orange_white",
-        text: "КУПИТЬ БИЛЕТЫ",
-        onClick: () => {
-            const formValide = validateForm()
-            if (formValide) {
-                selectVerification();
+    function checkFormCorrect () {
+        let error = true;
+        for (let key in user) {
+            if (user[key] === "") {
+                error = false;
             }
-        },
-    };
+        }
+        return error;
+    }
+
+    useEffect(() => {
+        const checked = checkFormCorrect();
+        if (checked) {
+            setButton({
+                size: "button-large",
+                decor: "button-orange_white",
+                text: "КУПИТЬ БИЛЕТЫ",
+                onClick: () => {
+                    selectVerification();
+                },
+            });
+        } else {
+            setButton({
+                size: "button-large",
+                decor: "button-unactive",
+                text: "КУПИТЬ БИЛЕТЫ",
+                onClick: () => {
+                    validateForm();
+                },
+            });
+        }
+    }, [user]);
 
     return (
         <div className="payment">
