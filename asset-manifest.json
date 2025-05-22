@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/fe-diplom/static/css/main.bb195340.css",
+    "main.js": "/fe-diplom/static/js/main.f0883b7c.js",
+    "static/media/Confirmation_screen.png": "/fe-diplom/static/media/Confirmation_screen.7d2d24204fae0efe3c71.png",
+    "static/media/Main_screen.png": "/fe-diplom/static/media/Main_screen.534b2b99ec1df995a44c.png",
+    "static/media/How.png": "/fe-diplom/static/media/How.a3f4d47dfe82158b8753.png",
+    "static/media/Steps_screen.png": "/fe-diplom/static/media/Steps_screen.9270e42c3fac5cff9087.png",
+    "index.html": "/fe-diplom/index.html",
+    "main.bb195340.css.map": "/fe-diplom/static/css/main.bb195340.css.map",
+    "main.f0883b7c.js.map": "/fe-diplom/static/js/main.f0883b7c.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.bb195340.css",
+    "static/js/main.f0883b7c.js"
+  ]
+}
